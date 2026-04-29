@@ -4,7 +4,7 @@
 
         <record model="ir.ui.view" id="view_appointment_form_copago_services">
             <field name="model">gnuhealth.appointment</field>
-            <field name="inherit" ref="health.gnuhealth_appointment_form"/>
+            <field name="inherit" ref="health_appointment_screen_fiuner.gnuhealth_appointment_form"/>
             <field name="name">gnuhealth_appointment_form_copago_services</field>
         </record>
 
