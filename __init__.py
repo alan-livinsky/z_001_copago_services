@@ -1,5 +1,6 @@
 from trytond.pool import Pool
 
+from . import appointment
 from . import health_service
 from . import product
 from . import report
@@ -8,6 +9,7 @@ from . import wizard
 
 def register():
     Pool.register(
+        appointment.Appointment,
         product.Product,
         health_service.HealthServiceLine,
         wizard.AppointmentCopagoV4Start,

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="view_appointment_form_copago_services">
+            <field name="model">gnuhealth.appointment</field>
+            <field name="inherit" ref="health.gnuhealth_appointment_form"/>
+            <field name="name">gnuhealth_appointment_form_copago_services</field>
+        </record>
+
+    </data>
+</tryton>
