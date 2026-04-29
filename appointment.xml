@@ -8,7 +8,7 @@
             <field name="name">gnuhealth_appointment_tree_copago_services</field>
             <field name="arch" type="xml"><![CDATA[
                 <data>
-                    <xpath expr="/tree/field[@name='healthprof']" position="after">
+                    <xpath expr="/tree/field[@name='appointment_date'][@widget='time']" position="after">
                         <field name="copago_status"/>
                     </xpath>
                 </data>
