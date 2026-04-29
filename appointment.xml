@@ -2,23 +2,11 @@
 <tryton>
     <data>
 
-        <record model="ir.ui.view" id="view_appointment_tree_copago_services">
-            <field name="model">gnuhealth.appointment</field>
-            <field name="inherit" ref="health.gnuhealth_appointment_tree"/>
-            <field name="name">gnuhealth_appointment_tree_copago_services</field>
-            <field name="arch" type="xml"><![CDATA[
-                <data>
-                    <xpath expr="/tree/button[@name='no_show']" position="replace">
-                    </xpath>
-                    <xpath expr="/tree/field[@name='patient']" position="before">
-                        <button name="no_show" help="The patient did not show up" string="No show"/>
-                    </xpath>
-                    <xpath expr="/tree/field[@name='healthprof']" position="after">
-                        <field name="copago_status"/>
-                    </xpath>
-                </data>
-            ]]></field>
-        </record>
+       <data>
+            <xpath expr="/tree/field[@name='healthprof']" position="after">
+                <field name="copago_status"/>
+            </xpath>
+        </data>
 
         <record model="ir.ui.view" id="view_appointment_form_copago_services">
             <field name="model">gnuhealth.appointment</field>
