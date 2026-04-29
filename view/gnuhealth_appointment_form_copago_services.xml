@@ -2,7 +2,7 @@
 <data>
     <xpath expr="/form/group[@id='appointment_header']/field[@name='patient']"
         position="after">
-        <label name="copago_paid"/>
-        <field name="copago_paid"/>
+        <label name="copago_status"/>
+        <field name="copago_status"/>
     </xpath>
 </data>
