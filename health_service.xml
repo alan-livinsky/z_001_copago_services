@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="view_health_service_line_form_copago_v4">
+            <field name="model">gnuhealth.health_service.line</field>
+            <field name="inherit" ref="health_services.gnuhealth_health_service_line_view"/>
+            <field name="name">gnuhealth_health_service_line_form_copago_v4</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_health_service_line_tree_copago_v4">
+            <field name="model">gnuhealth.health_service.line</field>
+            <field name="inherit" ref="health_services.gnuhealth_health_service_line_tree"/>
+            <field name="name">gnuhealth_health_service_line_tree_copago_v4</field>
+        </record>
+
+    </data>
+</tryton>

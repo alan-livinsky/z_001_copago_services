@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<form col="4">
+    <label name="patient"/>
+    <field name="patient"/>
+    <newline/>
+    <group col="4" colspan="4" id="copago_v4_exemptions">
+        <label name="copago_exemption_status"/>
+        <field name="copago_exemption_status" colspan="3"/>
+    </group>
+    <newline/>
+    <label name="observaciones"/>
+    <field name="observaciones" colspan="4"/>
+    <newline/>
+    <group col="4" colspan="4" id="copago_v4_services"
+        string="Servicios a cobrar en este copago">
+        <field name="products" colspan="4" mode="tree"
+            view_ids="z_001_copago_services.appointment_copago_v4_product_tree"
+            create="0"/>
+    </group>
+</form>

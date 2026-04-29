@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="view_product_form_copago_services">
+            <field name="model">product.product</field>
+            <field name="inherit" ref="product.product_view_form"/>
+            <field name="name">gnuhealth_product_form_copago_services</field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_tree_copago_services">
+            <field name="model">product.product</field>
+            <field name="inherit" ref="product.product_view_tree"/>
+            <field name="name">gnuhealth_product_tree_copago_services</field>
+        </record>
+
+        <record model="ir.ui.view" id="appointment_copago_v4_product_tree">
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="name">appointment_copago_v4_product_tree</field>
+        </record>
+
+    </data>
+</tryton>

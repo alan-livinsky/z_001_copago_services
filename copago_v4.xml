@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="appointment_copago_v4_start_view_form">
+            <field name="model">gnuhealth.appointment.copago.v4.start</field>
+            <field name="type">form</field>
+            <field name="name">appointment_copago_v4_start</field>
+        </record>
+
+        <record model="ir.ui.view" id="appointment_copago_v4_service_line_tree">
+            <field name="model">gnuhealth.health_service.line</field>
+            <field name="type">tree</field>
+            <field name="name">appointment_copago_v4_service_line_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_health_service_line">
+            <field name="name">Lineas de servicio</field>
+            <field name="res_model">gnuhealth.health_service.line</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_health_service_line_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="health_services.gnuhealth_health_service_line_tree"/>
+            <field name="act_window" ref="act_health_service_line"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_health_service_line_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="health_services.gnuhealth_health_service_line_view"/>
+            <field name="act_window" ref="act_health_service_line"/>
+        </record>
+
+        <menuitem parent="health_services.gnuhealth_services_menu"
+            action="act_health_service_line"
+            id="menu_health_service_line" sequence="25"
+            icon="gnuhealth-list"/>
+
+        <record model="ir.action.wizard" id="act_generate_appointment_copago_v4">
+            <field name="name">Generar copago v4</field>
+            <field name="wiz_name">wizard.gnuhealth.appointment.copago.v4</field>
+        </record>
+        <record model="ir.action.keyword" id="act_generate_appointment_copago_v4_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">gnuhealth.appointment,-1</field>
+            <field name="action" ref="act_generate_appointment_copago_v4"/>
+        </record>
+
+        <record model="ir.action.act_window" id="act_copago_v4_invoice">
+            <field name="name">Facturas copago v4</field>
+            <field name="res_model">account.invoice</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_copago_v4_invoice_form">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="health_services.invoice_view_form"/>
+            <field name="act_window" ref="act_copago_v4_invoice"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_copago_v4_invoice_tree">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="health_services.invoice_view_tree"/>
+            <field name="act_window" ref="act_copago_v4_invoice"/>
+        </record>
+
+        <record model="ir.action.report" id="report_copago_invoice_v4">
+            <field name="name">Copago Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="report_name">z_001_copago_services.invoice</field>
+            <field name="report">z_001_copago_services/report/invoice.odt</field>
+            <field name="single" eval="True"/>
+        </record>
+
+    </data>
+</tryton>

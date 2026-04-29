@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<data>
+    <xpath expr="/tree/field[@name='to_invoice']" position="after">
+        <field name="requires_individual_invoice" expand="1"/>
+        <field name="copago_invoice" expand="1"/>
+    </xpath>
+</data>
