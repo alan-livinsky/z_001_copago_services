@@ -4,6 +4,8 @@
     <xpath expr="/form/field[@name=&quot;active&quot;]" position="after">
         <separator string="Copago" id="copago" colspan="6"/>
         <group col="4" colspan="4" id="copago_specs">
+        <label name="is_copago_service"/>
+        <field name="is_copago_service"/>
         <label name="copago_individual_ticket"/>
         <field name="copago_individual_ticket"/>
         </group>

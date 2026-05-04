@@ -5,5 +5,7 @@ from trytond.pool import PoolMeta
 class Product(metaclass=PoolMeta):
     __name__ = 'product.product'
 
+    is_copago_service = fields.Boolean(
+        'Servicio de copago')
     copago_individual_ticket = fields.Boolean(
         'Generar ticket individual')
