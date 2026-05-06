@@ -2,6 +2,7 @@
 
 <data>
     <xpath expr="/tree/field[@name=&quot;is_insurance_plan&quot;]" position="after">
+        <field name="is_copago_service"/>
         <field name="copago_individual_ticket"/>
     </xpath>
 </data>

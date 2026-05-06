@@ -28,7 +28,8 @@ class AppointmentCopagoV4Start(ModelView):
     products = fields.Many2Many(
         'product.product', None, None, 'Servicios',
         domain=[
-            ('rec_name', 'ilike', '%copago%'),
+            ('type', '=', 'service'),
+            ('is_copago_service', '=', True),
         ],
         depends=['patient'])
     observaciones = fields.Text('Observaciones')
@@ -131,10 +132,10 @@ class GenerateAppointmentCopagoV4(Wizard):
             product_name = (
                 getattr(product, 'name', None)
                 or getattr(product, 'rec_name', None)
-                or ''
+                or str(product.id)
             )
-            if 'copago' not in product_name.lower():
-                invalid_products.append(product_name or str(product.id))
+            if not getattr(product, 'is_copago_service', False):
+                invalid_products.append(product_name)
 
         if invalid_products:
             raise UserError(

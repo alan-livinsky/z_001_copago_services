@@ -3,5 +3,6 @@
 <tree>
     <field name="rec_name" expand="1"/>
     <field name="list_price" expand="1"/>
+    <field name="is_copago_service" expand="1"/>
     <field name="copago_individual_ticket" expand="1"/>
 </tree>
