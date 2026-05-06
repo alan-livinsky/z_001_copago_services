@@ -15,7 +15,6 @@
     <group col="4" colspan="4" id="copago_v4_services"
         string="Servicios a cobrar en este copago">
         <field name="products" colspan="4" mode="tree"
-            view_ids="z_001_copago_services.appointment_copago_v4_product_tree"
-            create="0"/>
+            view_ids="z_001_copago_services.appointment_copago_v4_product_tree"/>
     </group>
 </form>
