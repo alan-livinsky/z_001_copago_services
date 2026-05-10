@@ -47,9 +47,11 @@ class CopagoInvoiceReport(Report):
         service = service_lines[0].name if service_lines else None
         appointment = cls._first(
             getattr(line, 'appointment', None) for line in service_lines)
+        service_patient = getattr(service, 'patient', None)
         patient = (
-            getattr(service, 'patient', None)
+            service_patient
             or getattr(appointment, 'patient', None)
+            or getattr(getattr(service_lines[0], 'name', None), 'patient', None)
             or None)
         party = getattr(patient, 'name', None) or getattr(invoice, 'party', None)
         insurance = getattr(patient, 'current_insurance', None)
@@ -61,6 +63,15 @@ class CopagoInvoiceReport(Report):
             return text(
                 getattr(record, 'rec_name', None)
                 or getattr(record, 'name', None))
+
+        def professional_name(professional):
+            if not professional:
+                return ''
+            return (
+                text(getattr(professional, 'rec_name', None))
+                or rec_name(getattr(professional, 'name', None))
+                or text(getattr(getattr(professional, 'name', None), 'name', None))
+            )
 
         def party_document(party):
             alternative_ids = list(getattr(party, 'alternative_ids', []) or [])
@@ -130,12 +141,11 @@ class CopagoInvoiceReport(Report):
             institution=rec_name(getattr(service, 'institution', None))
                 or rec_name(getattr(invoice, 'company', None)),
             medical_program=rec_name(getattr(insurance, 'company', None)),
-            plan=rec_name(getattr(insurance, 'plan_id', None))
-                or rec_name(getattr(getattr(insurance, 'plan_id', None),
-                    'name', None)),
+            plan=rec_name(getattr(insurance, 'plan_id', None)),
             affiliate_number=text(getattr(insurance, 'number', None)),
             document_number=party_document(party),
-            professional=rec_name(getattr(appointment, 'healthprof', None)),
+            professional=professional_name(
+                getattr(appointment, 'healthprof', None)),
             authorization='',
             observations=text(getattr(invoice, 'comment', None))
                 or text(getattr(appointment, 'comments', None)),
