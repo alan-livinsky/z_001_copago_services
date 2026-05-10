@@ -176,9 +176,10 @@ class CopagoInvoiceReport(Report):
         if not invoice:
             return []
         HealthServiceLine = Pool().get('gnuhealth.health_service.line')
-        return HealthServiceLine.search([
-            ('copago_invoice', '=', invoice.id),
-        ])
+        with Transaction().set_context(_check_access=False):
+            return HealthServiceLine.search([
+                ('copago_invoice', '=', invoice.id),
+            ])
 
     @staticmethod
     def _first(values):
