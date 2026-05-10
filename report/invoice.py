@@ -1,6 +1,7 @@
 import datetime
 from types import SimpleNamespace
 
+from trytond.exceptions import UserError
 from trytond.pool import Pool
 from trytond.report import Report
 from trytond.transaction import Transaction
@@ -44,6 +45,10 @@ class CopagoInvoiceReport(Report):
     @classmethod
     def _get_ticket_context(cls, invoice, format_currency):
         service_lines = cls._get_copago_service_lines(invoice)
+        if not service_lines:
+            raise UserError(
+                'La factura de copago generada no tiene líneas de servicio vinculadas.'
+            )
         first_service_line = service_lines[0] if service_lines else None
         service = service_lines[0].name if service_lines else None
         appointment = cls._first(
@@ -170,13 +175,10 @@ class CopagoInvoiceReport(Report):
     def _get_copago_service_lines(invoice):
         if not invoice:
             return []
-        try:
-            HealthServiceLine = Pool().get('gnuhealth.health_service.line')
-            return HealthServiceLine.search([
-                ('copago_invoice', '=', invoice.id),
-            ])
-        except Exception:
-            return []
+        HealthServiceLine = Pool().get('gnuhealth.health_service.line')
+        return HealthServiceLine.search([
+            ('copago_invoice', '=', invoice.id),
+        ])
 
     @staticmethod
     def _first(values):
