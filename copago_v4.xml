@@ -35,7 +35,7 @@
             icon="gnuhealth-list"/>
 
         <record model="ir.action.wizard" id="act_generate_appointment_copago_v4">
-            <field name="name">Generar copago v4</field>
+            <field name="name">Generar copago</field>
             <field name="wiz_name">wizard.gnuhealth.appointment.copago.v4</field>
         </record>
         <record model="ir.action.keyword" id="act_generate_appointment_copago_v4_keyword">
