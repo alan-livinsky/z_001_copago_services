@@ -44,6 +44,7 @@ class CopagoInvoiceReport(Report):
     @classmethod
     def _get_ticket_context(cls, invoice, format_currency):
         service_lines = cls._get_copago_service_lines(invoice)
+        first_service_line = service_lines[0] if service_lines else None
         service = service_lines[0].name if service_lines else None
         appointment = cls._first(
             getattr(line, 'appointment', None) for line in service_lines)
@@ -51,7 +52,7 @@ class CopagoInvoiceReport(Report):
         patient = (
             service_patient
             or getattr(appointment, 'patient', None)
-            or getattr(getattr(service_lines[0], 'name', None), 'patient', None)
+            or getattr(getattr(first_service_line, 'name', None), 'patient', None)
             or None)
         party = getattr(patient, 'name', None) or getattr(invoice, 'party', None)
         insurance = getattr(patient, 'current_insurance', None)

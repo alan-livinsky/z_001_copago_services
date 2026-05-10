@@ -41,17 +41,17 @@ class AppointmentCopagoV4Start(ModelView):
 
         active_ids = Transaction().context.get('active_ids') or []
         if len(active_ids) != 1:
-            raise UserError('Select exactly one appointment.')
+            raise UserError('Seleccione una sola cita.')
         appointment = Appointment(active_ids[0])
         if getattr(appointment, 'copago_paid', False):
-            raise UserError('The selected appointment is already marked as PAGADO.')
+            raise UserError('El correspondiente copago ya figura como pagado.')
         return appointment
 
     @classmethod
     def default_patient(cls):
         appointment = cls._get_appointment()
         if not appointment.patient:
-            raise UserError('The selected appointment does not have a patient.')
+            raise UserError('La cita seleccionada no tiene un paciente asignado.')
         return appointment.patient.id
 
     @classmethod
@@ -102,7 +102,7 @@ class GenerateAppointmentCopagoV4(Wizard):
 
         products = list(self.start.products or [])
         if not products:
-            raise UserError('Select at least one copago product.')
+            raise UserError('Seleccione al menos un producto de copago.')
         self._validate_copago_products(products)
 
         service = self._create_health_service(products)
@@ -139,7 +139,7 @@ class GenerateAppointmentCopagoV4(Wizard):
 
         if invalid_products:
             raise UserError(
-                'Only products configured for copago are allowed: %s'
+                'Solo se permiten productos configurados para copago: %s'
                 % ', '.join(invalid_products)
             )
 
@@ -152,7 +152,7 @@ class GenerateAppointmentCopagoV4(Wizard):
         today = datetime.date.today()
         company_id = Transaction().context.get('company')
         if not company_id:
-            raise UserError('No default company is available in the current context.')
+            raise UserError('No existe una compañía por defecto en el contexto actual.')
 
         service_line = []
         for product in products:
@@ -228,18 +228,18 @@ class GenerateAppointmentCopagoV4(Wizard):
         elif acct_config.default_account_receivable:
             invoice_data['account'] = acct_config.default_account_receivable.id
         else:
-            raise UserError('No receivable account is configured for this party.')
+            raise UserError('No existe una cuenta por cobrar por defecto en la configuración de la empresa.')
 
         journals = Journal.search([
             ('type', '=', 'revenue'),
         ], limit=1)
         if not journals:
-            raise UserError('No revenue journal is configured.')
+            raise UserError('No existe un diario de ingresos configurado.')
         invoice_data['journal'] = journals[0].id
 
         party_address = Party.address_get(party, type='invoice')
         if not party_address:
-            raise UserError('The invoiced party does not have an invoice address.')
+            raise UserError('La factura no tiene una dirección de facturación.')
         invoice_data['invoice_address'] = party_address.id
 
         if party.customer_payment_term:
@@ -248,7 +248,7 @@ class GenerateAppointmentCopagoV4(Wizard):
             invoice_data['payment_term'] = (
                 acct_config.default_customer_payment_term.id)
         else:
-            raise UserError('No customer payment term is configured.')
+            raise UserError('No existe un plazo de pago para clientes por defecto en la configuración de la empresa.')
 
         return invoice_data
 
@@ -263,7 +263,7 @@ class GenerateAppointmentCopagoV4(Wizard):
             account = line.product.template.account_revenue_used
             if not account:
                 raise UserError(
-                    'The selected service product does not have a revenue account.')
+                    'El producto de servicio seleccionado no tiene una cuenta de ingresos.')
 
             unit_price = self._compute_unit_price(line)
             if zero_amount:
@@ -283,7 +283,7 @@ class GenerateAppointmentCopagoV4(Wizard):
             }]))
 
         if not invoice_lines:
-            raise UserError('The selected lines do not contain invoiceable items.')
+            raise UserError('Las líneas seleccionadas no contienen artículos facturables.')
         return invoice_lines
 
     def _compute_unit_price(self, line):
