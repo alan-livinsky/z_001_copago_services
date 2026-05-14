@@ -60,10 +60,11 @@
         </record>
 
         <record model="ir.action.report" id="report_copago_invoice_v4">
-            <field name="name">Copago Invoice</field>
+            <field name="name">Comprobante de copago</field>
             <field name="model">account.invoice</field>
             <field name="report_name">z_001_copago_services.invoice</field>
-            <field name="report">z_001_copago_services/report/invoice.odt</field>
+            <field name="report">z_001_copago_services/report/invoice.fodt</field>
+            <field name="extension">pdf</field>
             <field name="single" eval="True"/>
         </record>
 
